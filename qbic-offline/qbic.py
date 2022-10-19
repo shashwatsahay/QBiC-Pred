@@ -116,6 +116,9 @@ def chrom_cidx_helper(cidx, cidx_dataset, chromosome_version, kmer):
             #raise Exception(error)
             print(error)
         seq = chromosome[pos-kmer+1:pos+kmer] + row['mutated_to'] #-5,+6
+        if 'N' in seq:
+            print('Skipping: '+str(row['chromosome'])+' '+str(row['pos'])+' '+str(row['mutated_from'])+' '+str(row['mutated_to']))
+            continue
         # for escore, just use 8?
         escore_seq = chromosome[pos-9+1:pos+9] + row['mutated_to']
         result.append([idx,seq,escore_seq,utils.seqtoi(seq),0,0,"None"]) #rowidx,seq,escore_seq,val,diff,t,pbmname
